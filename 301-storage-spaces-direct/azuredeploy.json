@@ -8,7 +8,8 @@
       "maxLength": 8,
       "metadata": {
         "description": "Naming prefix for each new resource created. 3-char min, 8-char max, lowercase alphanumeric"
-      }
+      },
+      "defaultValue": "alt-file"
     },
     "storageAccountType": {
       "type": "string",
@@ -55,19 +56,21 @@
       "metadata": {
         "description": "Number of data disks on each S2D VM (Min=2, Max=32). Ensure that the VM size you've selected will support this number of data disks."
       },
-      "defaultValue": 2
+      "defaultValue": 4
     },
     "existingDomainName": {
       "type": "string",
       "metadata": {
         "description": "DNS domain name for existing Active Directory domain"
-      }
+      },
+      "defaultValue": "desktop.alttechnologies.com"
     },
     "adminUsername": {
       "type": "string",
       "metadata": {
         "description": "Name of the Administrator of the existing Active Directory Domain"
-      }
+      },
+      "defaultValue": "sentia-admin"
     },
     "adminPassword": {
       "type": "securestring",
@@ -80,26 +83,29 @@
       "type": "string",
       "metadata": {
         "description": "Resource Group Name for the existing VNET."
-      }
+      },
+      "defaultValue": "alt-ad"
     },
     "existingVirtualNetworkName": {
       "type": "string",
       "metadata": {
         "description": "Name of the existing VNET."
-      }
+      },
+      "defaultValue": "alt-vnet-p"
     },
     "existingSubnetName": {
       "type": "string",
       "metadata": {
         "description": "Name of the existing subnet in the existing VNET to which the S2D VMs should be deployed"
-      }
+      },
+      "defaultValue": "alt-file"
     },
     "sofsName": {
       "type": "string",
       "metadata": {
         "description": "Name of clustered Scale-Out File Server role"
       },
-      "defaultValue": "fs01"
+      "defaultValue": "alt-sofs"
     },
     "shareName": {
       "type": "string",
