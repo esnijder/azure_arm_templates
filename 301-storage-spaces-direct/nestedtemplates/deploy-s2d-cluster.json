@@ -117,7 +117,7 @@
         "storageNamePrefix": "altfilevhd",
         "witnessStorageName": "altfilewitness",
         "witnessStorageType": "Standard_LRS",
-        "vmNamePrefix": "[concat(parameters('namePrefix'),'-p')]",
+        "vmNamePrefix": "[concat(parameters('namePrefix'),'-p0')]",
         "vmAvailabilitySetName": "[concat(variables('vmNamePrefix'),'-as')]",
         "clusterName": "[concat(variables('vmNamePrefix'),'-c')]",
         "vmLoopTemplateURL": "[concat(parameters('_artifactsLocation'),'/nestedtemplates/newVM.json',parameters('_artifactsLocationSasToken'))]",
