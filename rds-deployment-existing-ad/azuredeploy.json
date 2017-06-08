@@ -338,7 +338,7 @@
         {
             "apiVersion": "2015-06-15",
             "type": "Microsoft.Network/networkInterfaces",
-            "name": "[concat('alt-rdsh-p0', copyindex(), '-nic')]",
+            "name": "[concat('alt-rdsh-p0', copyindex(1), '-nic')]",
             "location": "[resourceGroup().location]",
             "copy": {
                 "name": "rdsh-nic-loop",
@@ -449,7 +449,7 @@
         {
             "apiVersion": "2015-06-15",
             "type": "Microsoft.Compute/virtualMachines",
-            "name": "[concat('alt-rdsh-p0', copyindex())]",
+            "name": "[concat('alt-rdsh-p0', copyindex(1))]",
             "location": "[resourceGroup().location]",
             "copy": {
                 "name": "rdsh-vm-loop",
@@ -458,7 +458,7 @@
             "dependsOn": [
                 "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
                 "[resourceId('Microsoft.Compute/availabilitySets', 'rdsh-availabilityset')]",
-                "[concat('Microsoft.Network/networkInterfaces/', 'alt-rdsh-p0', copyindex(), '-nic')]"
+                "[concat('Microsoft.Network/networkInterfaces/', 'alt-rdsh-p0', copyindex(1), '-nic')]"
             ],
             "properties": {
                 "hardwareProfile": {
@@ -468,7 +468,7 @@
                     "id": "[resourceId('Microsoft.Compute/availabilitySets', 'rdsh-availabilityset')]"
                 },
                 "osProfile": {
-                    "computerName": "[concat('alt-rdsh-p0', copyIndex())]",
+                    "computerName": "[concat('alt-rdsh-p0', copyIndex(1))]",
                     "adminUsername": "[parameters('adminUsername')]",
                     "adminPassword": "[parameters('adminPassword')]"
                 },
@@ -482,7 +482,7 @@
                     "osDisk": {
                         "name": "osdisk",
                         "vhd": {
-                            "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),'/','alt-rdsh-p0',copyindex(),'-os-disk.vhd')]"
+                            "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob,variables('uniqueStorageAccountContainerName'),'/','alt-rdsh-p0',copyindex(1),'-os-disk.vhd')]"
                         },
                         "caching": "ReadWrite",
                         "createOption": "FromImage"
@@ -491,7 +491,7 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces',concat('alt-rdsh-p0', copyindex(), '-nic'))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces',concat('alt-rdsh-p0', copyindex(1), '-nic'))]"
                         }
                     ]
                 }
@@ -500,10 +500,10 @@
                 {
                     "apiVersion": "2015-06-15",
                     "type": "Microsoft.Compute/virtualMachines/extensions",
-                    "name": "[concat('alt-rdsh-p0', copyindex(),'/sessionhost')]",
+                    "name": "[concat('alt-rdsh-p0', copyindex(1),'/sessionhost')]",
                     "location": "[resourceGroup().location]",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Compute/virtualMachines', concat('alt-rdsh-p0', copyindex()))]"
+                        "[resourceId('Microsoft.Compute/virtualMachines', concat('alt-rdsh-p0', copyindex(1)))]"
                     ],
                     "properties": {
                         "publisher": "Microsoft.Powershell",

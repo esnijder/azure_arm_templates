@@ -136,7 +136,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[variables('vnetTemplateUri')]",
+          "uri": "[variables('vnetTemplateUri')]",(1)
           "contentVersion": "1.0.0.0"
         },
         "parameters": {

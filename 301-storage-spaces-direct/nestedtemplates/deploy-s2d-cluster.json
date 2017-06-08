@@ -146,7 +146,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts",
-            "name": "[concat(variables('storageNamePrefix'),copyindex())]",
+            "name": "[concat(variables('storageNamePrefix'),copyindex(1))]",
             "apiVersion": "2016-01-01",
             "copy": {
                 "name": "storageAccountLoop",
@@ -159,7 +159,7 @@
             "kind": "Storage"
         },
         {
-            "name": "[concat(variables('vmNamePrefix'), copyindex(), '-nic')]",
+            "name": "[concat(variables('vmNamePrefix'), copyindex(1), '-nic')]",
             "type": "Microsoft.Network/networkInterfaces",
             "location": "[resourceGroup().location]",
             "apiVersion": "2015-06-15",
@@ -188,7 +188,7 @@
                 "name": "virtualMachineLoop",
                 "count": "[parameters('vmCount')]"
             },
-            "name": "[concat(variables('vmNamePrefix'),copyindex(),'-newVM')]",
+            "name": "[concat(variables('vmNamePrefix'),copyindex(1),'-newVM')]",
             "dependsOn": [
                 "storageAccountLoop",
                 "nicLoop",
@@ -201,10 +201,10 @@
                 },
                 "parameters": {
                     "vmName": {
-                        "value": "[concat(variables('vmNamePrefix'), copyindex())]"
+                        "value": "[concat(variables('vmNamePrefix'), copyindex(1))]"
                     },
                     "storageAccountUri": {
-                        "value": "[reference(concat('Microsoft.Storage/storageAccounts/',variables('StorageNamePrefix'),copyIndex()),variables('apiVersionStorage')).primaryEndpoints.blob]"
+                        "value": "[reference(concat('Microsoft.Storage/storageAccounts/',variables('StorageNamePrefix'),copyIndex(1)),variables('apiVersionStorage')).primaryEndpoints.blob]"
                     },
                     "vmAvailabilitySetName": {
                         "value": "[variables('vmAvailabilitySetName')]"
