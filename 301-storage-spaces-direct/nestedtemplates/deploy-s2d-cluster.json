@@ -118,7 +118,7 @@
         "witnessStorageName": "altfilewitness",
         "witnessStorageType": "Standard_LRS",
         "vmNamePrefix": "[concat(parameters('namePrefix'),'-p0')]",
-        "vmAvailabilitySetName": "[concat(variables('vmNamePrefix'),'-as')]",
+        "vmAvailabilitySetName": "file-availabilityset",
         "clusterName": "[concat(variables('vmNamePrefix'),'-c')]",
         "vmLoopTemplateURL": "[concat(parameters('_artifactsLocation'),'/nestedtemplates/newVM.json',parameters('_artifactsLocationSasToken'))]",
         "s2dPrepModulesURL": "[concat(parameters('_artifactsLocation'),'/dsc/prep-s2d.ps1.zip',parameters('_artifactsLocationSasToken'))]",
