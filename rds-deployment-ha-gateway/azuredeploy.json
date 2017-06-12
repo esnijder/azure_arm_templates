@@ -6,7 +6,8 @@
       "type": "string",
       "metadata": {
         "description": "Unique public DNS prefix for the deployment. The fqdn will look something like '<dnsname>.westus.cloudapp.azure.com'. Up to 62 chars, digits or dashes, lowercase, should start with a letter: must conform to '^[a-z][a-z0-9-]{1,61}[a-z0-9]$'."
-      }
+      },
+      "defaultValue": "altgw"
     },
     "loadBalancer": {
       "type": "string",
@@ -20,26 +21,30 @@
       "defaultValue": "LBBAP",
       "metadata": {
         "description": "The backendAddressPools name must match from the RDS deployment. And default value taken by template is LBBAP."
-      }
+      },
+      "defaultValue": "RDSHLBBAP"
     },
     "gw-AvailabilitySet": {
       "type": "string",
       "defaultValue": "gw-availabilityset",
       "metadata": {
         "description": "The gw-availabilityset name must match from the RDS deployment. And default value taken by template is gw-availabilityset."
-      }
+      },
+      "defaultValue": "gw-availabilityset"
     },
     "adDomainName": {
       "type": "string",
       "metadata": {
         "description": "The FQDN of the AD domain"
-      }
+      },
+      "defaultValue": "desktop.alttechnologies.com"
     },
     "adminUsername": {
       "type": "string",
       "metadata": {
         "description": "The name of the administrator of the new VM and the domain. Exclusion list: 'administrator"
-      }
+      },
+      "defaultValue": "sentia-admin"
     },
     "adminPassword": {
       "type": "securestring",
@@ -58,25 +63,29 @@
       "type": "string",
       "metadata": {
         "description": "FQDN for Broker Server"
-      }
+      },
+      "defaultValue": "alt-cb-p01.desktop.alttechnologies.com"
     },
     "WebURL": {
       "type": "string",
       "metadata": {
         "description": "This is RD Gateway external FQDN. This shall be picked from existing basic RDS deploment."
-      }
+      },
+      "defaultValue": "altrdgw.westeurope.cloudapp.azure.com"
     },
     "domainNetbios": {
       "type": "string",
       "metadata": {
         "description": "Netbios Name for Domain"
-      }
+      },
+      "defaultValue": "desktop"
     },
     "storageAccountName": {
       "type": "string",
       "metadata": {
         "description": "Storage account name of RDS-Deployment"
-      }
+      },
+      "defaultValue": "altrdsfarm"
     },
     "imageSKU": {
       "type": "string",
@@ -101,22 +110,22 @@
       "metadata": {
         "description": "The vnet name of AD domain. For example johnvnet1"
       },
-      "defaultValue": "vnet"
+      "defaultValue": "alt-vnet-p"
     },
     "existingSubnet": {
       "type": "string",
       "metadata": {
-        "description": "The subnet name of AD domain. For example johnsubnet1"
+        "description": "The subnet name of RDS resources. For example johnsubnet1"
       },
-      "defaultValue": "Subnet"
+      "defaultValue": "ÄLT-RDS"
     }
   },
   "variables": {
     "imagePublisher": "MicrosoftWindowsServer",
     "imageOffer": "WindowsServer",
-    "vnetAddressRange": "10.0.0.0/16",
-    "subnetAddressRange": "10.0.0.0/24",
-    "dnsServerPrivateIp": "10.0.0.8",
+    "vnetAddressRange": "10.50.3.0/24",
+    "subnetAddressRange": "10.50.3.32/28",
+    "dnsServerPrivateIp": "10.50.3.20",
     "subnet-id": "[concat(resourceId('Microsoft.Network/virtualNetworks',parameters('existingVnet')),'/subnets/',parameters('existingSubnet'))]",
     "publicIpRef": "publicIp",
     "assetLocation": "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/rds-deployment",
