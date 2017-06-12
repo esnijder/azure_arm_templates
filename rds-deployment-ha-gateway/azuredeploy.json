@@ -117,7 +117,7 @@
       "metadata": {
         "description": "The subnet name of RDS resources. For example johnsubnet1"
       },
-      "defaultValue": "ÄLT-RDS"
+      "defaultValue": "ALT-RDS"
     }
   },
   "variables": {
@@ -126,7 +126,7 @@
     "vnetAddressRange": "10.50.3.0/24",
     "subnetAddressRange": "10.50.3.32/28",
     "dnsServerPrivateIp": "10.50.3.20",
-    "subnet-id": "[concat(resourceId('Microsoft.Network/virtualNetworks',parameters('existingVnet')),'/subnets/',parameters('existingSubnet'))]",
+    "subnet-id": "/subscriptions/7abdac23-f45e-4cc0-a9e6-6652ac9cf1a7/resourceGroups/ALT-AD/providers/Microsoft.Network/virtualNetworks/ALT-VNET-P/subnets/ALT-AD",
     "publicIpRef": "publicIp",
     "assetLocation": "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/rds-deployment",
     "apiVersion": "2015-06-15",
@@ -300,7 +300,7 @@
       }
     },
     {
-      "name": "[concat('gw-vm-',copyindex())]",
+      "name": "[concat('alt-gw-p0',copyindex())]",
       "type": "Microsoft.Compute/virtualMachines",
       "location": "[resourceGroup().location]",
       "apiVersion": "[variables('apiversion')]",
@@ -311,7 +311,7 @@
       "dependsOn": [
         "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",
         "[resourceId('Microsoft.Compute/availabilitySets', 'gw-availabilityset')]",
-        "[concat('Microsoft.Network/networkInterfaces/gw-',copyindex(),'-nic')]"
+        "[concat('Microsoft.Network/networkInterfaces/alt-gw-p0',copyindex(),'-nic')]"
       ],
       "properties": {
         "hardwareProfile": {
@@ -344,19 +344,19 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces',concat('gw-',copyindex(),'-nic'))]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces',concat('alt-gw-p0',copyindex(),'-nic'))]"
             }
           ]
         }
       },
       "resources": [
         {
-          "name": "[concat('gw-vm-',copyindex(),'/Gateway')]",
+          "name": "[concat('alt-gw-p0',copyindex(),'/Gateway')]",
           "type": "Microsoft.Compute/virtualMachines/extensions",
           "location": "[resourceGroup().location]",
           "apiVersion": "[variables('apiversion')]",
           "dependsOn": [
-            "[resourceId('Microsoft.Compute/virtualMachines', Concat('gw-vm-',copyindex()))]"
+            "[resourceId('Microsoft.Compute/virtualMachines', Concat('alt-gw-p0',copyindex()))]"
           ],
           "properties": {
             "publisher": "Microsoft.Powershell",
@@ -383,13 +383,13 @@
           }
         },
         {
-          "name": "[concat('gw-vm-',copyindex(),'/WebAndGwFarmAdd_PostConfig1.1')]",
+          "name": "[concat('alt-gw-p0',copyindex(),'/WebAndGwFarmAdd_PostConfig1.1')]",
           "type": "Microsoft.Compute/virtualMachines/extensions",
           "location": "[resourceGroup().location]",
           "apiVersion": "[variables('apiversion')]",
           "dependsOn": [
-            "[resourceId('Microsoft.Compute/virtualMachines', Concat('gw-vm-',copyindex()))]",
-            "[concat('Microsoft.Compute/virtualMachines/gw-vm-',copyindex(),'/extensions/','Gateway')]"
+            "[resourceId('Microsoft.Compute/virtualMachines', Concat('alt-gw-p0',copyindex()))]",
+            "[concat('Microsoft.Compute/virtualMachines/alt-gw-p0',copyindex(),'/extensions/','Gateway')]"
           ],
           "properties": {
             "publisher": "Microsoft.Compute",
@@ -398,10 +398,10 @@
             "autoUpgradeMinorVersion": true,
             "settings": {
               "fileUris": [ "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/rds-deployment-ha-gateway/Scripts/WebAndGwFarmAdd_PostConfig1.1.ps1" ]
-              
+
             },
             "protectedSettings": {
-              
+
               "Items": { "AdminPassword": "[parameters('adminPassword')]" },
               "storageAccountName": "[parameters('storageaccountname')]",
               "commandToExecute": "[Concat('powershell.exe -ExecutionPolicy Unrestricted -File', ' ', 'WebAndGwFarmAdd_PostConfig1.1.ps1',' ','-username \"',parameters('adminusername'),'\" ', '-password \"',parameters('adminpassword'),'\" ','-BrokerServer \"',parameters('BrokerServer'),'\" ','-WebURL \"',parameters('WebURL'),'\" ','-Domainname \"',parameters('adDomainName'),'\" ','-DomainNetbios \"',parameters('DomainNetbios'),'\" ','-numberofwebServers ',parameters('numberOfWebGwInstances'))]"
