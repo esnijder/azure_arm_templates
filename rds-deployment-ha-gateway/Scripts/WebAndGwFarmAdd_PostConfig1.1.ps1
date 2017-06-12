@@ -9,7 +9,7 @@ param
      [String]$DomainNetbios,
      [String]$username,
      [String]$password,
-     [string]$ServerName = "gateway",
+     [string]$ServerName = "alt-gw-p0",
      [int]$numberofwebServers,
      $validationKey64,
      $decryptionKey24
@@ -186,12 +186,12 @@ for ($i = 0; $i -le $numberofwebServers; $i++)
 { 
     if ($i -eq 0)
     {
-        $webServername = "Gateway"
+        $webServername = "alt-gw-p0"
         #Write-Host "For i = 0, srvername = $($webServername)"
     }
     else{
     $servercount = $i - 1
-    $webServername = "gateway" + $servercount.ToString()
+    $webServername = "alt-gw-p0" + $servercount.ToString()
     #Write-Host "For $($i), servername = $($webServername)"
         }
     $webServernameArray.Add($webServername) | Out-Null
