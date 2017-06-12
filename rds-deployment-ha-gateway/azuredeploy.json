@@ -163,7 +163,7 @@
     {
       "apiVersion": "[variables('apiVersion')]",
       "type": "Microsoft.Network/loadBalancers",
-      "name": "[Parameters('Loadbalancer')]",
+      "name": "[Parameters('loadbalancer')]",
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[concat('Microsoft.Network/publicIPAddresses/',variables('publicIpRef'))]"
@@ -276,7 +276,7 @@
         "count": "[parameters('numberOfWebGwInstances')]"
       },
       "dependsOn": [
-        "Microsoft.Network/loadBalancers/loadBalancer"
+        "Microsoft.Network/loadBalancers/rdgwloadBalancer"
       ],
       "properties": {
 
@@ -290,7 +290,7 @@
               },
               "loadBalancerBackendAddressPools": [
                 {
-                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers','loadBalancer'),'/backendAddressPools/',parameters('backendAddressPools'))]"
+                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers',Parameters('loadBalancer')),'/backendAddressPools/',parameters('backendAddressPools'))]"
                 }
               ],
               "loadBalancerInboundNatRules": [ ]
