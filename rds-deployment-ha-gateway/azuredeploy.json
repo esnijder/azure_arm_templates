@@ -267,7 +267,7 @@
       }
     },
     {
-      "name": "[concat('gw-',copyindex(),'-nic')]",
+      "name": "[concat('alt-gw-p0',copyindex(),'-nic')]",
       "type": "Microsoft.Network/networkInterfaces",
       "location": "[resourceGroup().location]",
       "apiVersion": "[variables('apiversion')]",
