@@ -146,7 +146,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts",
-            "name": "[concat(variables('storageNamePrefix'),copyindex(1))]",
+            "name": "[concat(variables('storageNamePrefix'),copyindex())]",
             "apiVersion": "2016-01-01",
             "copy": {
                 "name": "storageAccountLoop",
@@ -159,7 +159,7 @@
             "kind": "Storage"
         },
         {
-            "name": "[concat(variables('vmNamePrefix'), copyindex(1), '-nic')]",
+            "name": "[concat(variables('vmNamePrefix'), copyindex(), '-nic')]",
             "type": "Microsoft.Network/networkInterfaces",
             "location": "[resourceGroup().location]",
             "apiVersion": "2015-06-15",
@@ -188,7 +188,7 @@
                 "name": "virtualMachineLoop",
                 "count": "[parameters('vmCount')]"
             },
-            "name": "[concat(variables('vmNamePrefix'),copyindex(1),'-newVM')]",
+            "name": "[concat(variables('vmNamePrefix'),copyindex(),'-newVM')]",
             "dependsOn": [
                 "storageAccountLoop",
                 "nicLoop",
@@ -201,10 +201,10 @@
                 },
                 "parameters": {
                     "vmName": {
-                        "value": "[concat(variables('vmNamePrefix'), copyindex(1))]"
+                        "value": "[concat(variables('vmNamePrefix'), copyindex())]"
                     },
                     "storageAccountUri": {
-                        "value": "[reference(concat('Microsoft.Storage/storageAccounts/',variables('StorageNamePrefix'),copyIndex(1)),variables('apiVersionStorage')).primaryEndpoints.blob]"
+                        "value": "[reference(concat('Microsoft.Storage/storageAccounts/',variables('StorageNamePrefix'),copyIndex()),variables('apiVersionStorage')).primaryEndpoints.blob]"
                     },
                     "vmAvailabilitySetName": {
                         "value": "[variables('vmAvailabilitySetName')]"
@@ -282,7 +282,7 @@
         },
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "[concat(variables('vmNamePrefix'),'1/s2dConfig')]",
+            "name": "[concat(variables('vmNamePrefix'),'0/s2dConfig')]",
             "apiVersion": "2015-06-15",
             "location": "[resourceGroup().location]",
             "dependsOn": [
