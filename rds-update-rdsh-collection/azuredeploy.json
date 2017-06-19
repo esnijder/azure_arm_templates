@@ -136,7 +136,7 @@
                         "properties": {
                             "privateIPAllocationMethod": "Dynamic",
                             "subnet": {
-                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('existingVnetName'), parameters('existingSubnetName'))]"
+                                "id": "/subscriptions/7abdac23-f45e-4cc0-a9e6-6652ac9cf1a7/resourceGroups/ALT-AD/providers/Microsoft.Network/virtualNetworks/ALT-VNET-P/subnets/ALT-RDS"
                             }
                         }
                     }
