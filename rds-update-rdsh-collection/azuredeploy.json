@@ -52,7 +52,7 @@
         },
         "existingAdminUsername": {
             "type": "string",
-            "defaultValue": "sentia-admin"
+            "defaultValue": "sentia-admin",
             "metadata": {
                 "description": "The name of administrator in the existing RDS deployment"
             }
